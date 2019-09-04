@@ -1,0 +1,6 @@
+#asd
+PUSH 5
+PUSH 9
+SQRT
+-
+PRINT
