@@ -1,0 +1,56 @@
+<project name="Medved_Minesweeper" default="all" >
+
+    <property name="build.dir" value="build"/>
+    <property name="class.dir" value="${build.dir}/Minesweeper"/>
+
+    <property name="src.dir" value="src"/>
+
+    <property name="graphic.jar.name" value="Medved_Minesweeper.jar"/>
+    <property name="text.jar.name" value="Text_Medved_Minesweeper.jar"/>
+
+
+
+    <property name="graphicMain.class" value="ru.nsu.fit.kuzakov.minesweeper.GraphicMain"/>
+    <property name="textMain.class" value="ru.nsu.fit.kuzakov.minesweeper.TextMain"/>
+
+    <target name="make.dirs" description="Make a dir">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${class.dir}"/>
+    </target>
+
+    <path id="myclasspath">
+        <fileset dir=".idea">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="compile" description="compile java" depends="make.dirs">
+        <javac destdir="${class.dir}">
+            <src path="src"/>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar basedir="${class.dir}" destfile="${text.jar.name}">
+            <manifest>
+                <attribute name="Main-Class" value="${textMain.class}"/>
+            </manifest>
+        </jar>
+
+        <jar basedir="${class.dir}" destfile="${graphic.jar.name}">
+            <manifest>
+                <attribute name="Main-Class" value="${graphicMain.class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="clean" description="Clean up">
+        <echo>Build files are removed.</echo>
+        <delete dir="build"/>
+        <delete file="${text.jar.name}"/>
+        <delete file="${graphic.jar.name}"/>
+    </target>
+
+    <target name="all" description="Do the build" depends="jar"/>
+
+</project>
